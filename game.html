@@ -176,10 +176,10 @@
       <div class="panel">
         <h1>精灵守卫</h1>
         <p>怪物从左侧裂缝涌出，沿着石板路扑向右侧要塞。<br>建塔拦截它们，守住每一波。</p>
-        <div class="diffrow">
-          <div class="diff" data-d="easy"><b>轻松</b><span>金币 320 · 要塞 30</span></div>
-          <div class="diff sel" data-d="normal"><b>标准</b><span>金币 240 · 要塞 20</span></div>
-          <div class="diff" data-d="hard"><b>硬仗</b><span>金币 190 · 要塞 12</span></div>
+        <div class="diffrow" id="diffrow">
+          <div class="diff" data-d="easy"><b>轻松</b><span></span></div>
+          <div class="diff sel" data-d="normal"><b>标准</b><span></span></div>
+          <div class="diff" data-d="hard"><b>硬仗</b><span></span></div>
         </div>
         <div class="rules">
           · 点击下方塔牌选择塔，再点空地建造（快捷键 1–4）<br>
@@ -1178,8 +1178,17 @@ window.addEventListener('resize', () => { render(); });
 /* ---------- 启动 ---------- */
 newGame('normal');
 refreshCards();
+refreshDiffLabels();
 showOverlay('#ov-menu');
 requestAnimationFrame(frame);
+
+/** 难度卡片的数值从 DIFFS 生成，避免手写文案与实际数值脱节 */
+function refreshDiffLabels() {
+  document.querySelectorAll('.diff').forEach(el => {
+    const d = DIFFS[el.dataset.d];
+    if (d) el.querySelector('span').textContent = '金币 ' + d.gold + ' · 要塞 ' + d.lives + ' · 强度 ' + d.hp.toFixed(2) + '×';
+  });
+}
 
 /* =========================== 测试接口 =========================== */
 window.__td = {
