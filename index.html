@@ -3,103 +3,117 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>精灵守卫 · 塔防游戏</title>
+<title>游戏合集 · 塔防与 Roguelike</title>
 <style>
   :root{
-    --cream:#fff7e8; --cream-2:#ffeccb;
-    --wood:#6b4a2f; --wood-2:#8a6440; --wood-3:#4d3421;
-    --gold:#ffc043; --ink:#3b2a1b; --ink-2:#6d5744;
+    --cream:#fff8ea; --cream2:#ffeed0;
+    --wood:#6b4a2f; --wood2:#8d6742; --wood3:#4a3220;
+    --gold:#ffc043; --ink:#3a2a1b; --ink2:#6d5744;
+    --r:16px;
   }
-  *{box-sizing:border-box}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{height:100%;margin:0}
   body{
     font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
     color:var(--ink);
-    background:radial-gradient(1200px 500px at 50% -10%, #fffdf6 0%, #ffeecb 55%, #f7dcae 100%);
-    display:flex;align-items:center;justify-content:center;padding:16px;
+    background:radial-gradient(1200px 600px at 50% -10%, #fffdf6 0%, #ffeecb 52%, #f2d29e 100%);
+    display:flex;align-items:center;justify-content:center;padding:20px;
   }
-  .wrap{width:min(760px,100%);text-align:center}
+  .wrap{width:min(880px,100%)}
+  header{text-align:center;margin-bottom:22px}
   .badge{
     display:inline-block;background:linear-gradient(180deg,#ffd977,var(--gold));
-    border:3px solid var(--wood-3);border-radius:999px;padding:5px 16px;
+    border:3px solid var(--wood3);border-radius:999px;padding:5px 16px;
     font-weight:800;font-size:13px;box-shadow:0 3px 0 rgba(0,0,0,.18);
   }
-  h1{font-size:44px;margin:14px 0 6px;letter-spacing:3px}
-  .sub{color:var(--ink-2);font-size:16px;margin:0 0 22px;line-height:1.7}
-  .panel{
-    background:linear-gradient(180deg,var(--cream),var(--cream-2));
-    border:3px solid var(--wood-3);border-radius:18px;padding:22px 24px;
-    box-shadow:0 10px 0 rgba(0,0,0,.16);text-align:left;
+  h1{font-size:40px;margin:13px 0 6px;letter-spacing:3px}
+  .sub{color:var(--ink2);font-size:15px;margin:0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:680px){ .grid{grid-template-columns:1fr} h1{font-size:30px} }
+  .card{
+    display:block;text-decoration:none;color:inherit;
+    background:linear-gradient(180deg,var(--cream),var(--cream2));
+    border:3px solid var(--wood3);border-radius:var(--r);
+    padding:20px;box-shadow:0 8px 0 rgba(0,0,0,.16);
+    transition:transform .1s ease, box-shadow .1s ease;
+    position:relative;overflow:hidden;
   }
-  .play{
+  .card:hover{transform:translateY(-4px);box-shadow:0 12px 0 rgba(0,0,0,.16)}
+  .card:active{transform:translateY(2px);box-shadow:0 3px 0 rgba(0,0,0,.16)}
+  .thumb{
+    height:150px;border-radius:12px;border:2px solid var(--wood3);
+    margin-bottom:14px;position:relative;overflow:hidden;
+    display:grid;place-items:center;font-size:52px;
+  }
+  .thumb.td{background:linear-gradient(160deg,#7ec850,#3f7f2e)}
+  .thumb.eg{background:linear-gradient(160deg,#3a2b1e,#1c140e)}
+  .thumb .chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+  .thumb .chips i{
+    font-style:normal;background:rgba(0,0,0,.42);color:#ffe9b0;
+    border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700;
+  }
+  .card h2{margin:0 0 5px;font-size:21px;display:flex;align-items:center;gap:8px}
+  .card p{margin:0 0 12px;color:var(--ink2);font-size:13px;line-height:1.65}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+  .tag{background:rgba(107,74,47,.13);border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;color:var(--ink2)}
+  .go{
     display:block;text-align:center;text-decoration:none;
-    font-size:20px;font-weight:800;color:var(--ink);
-    background:linear-gradient(180deg,#ffd977,var(--gold));
-    border:3px solid var(--wood-3);border-radius:14px;padding:15px 20px;
-    box-shadow:0 5px 0 var(--wood-3);margin:20px 0 8px;
-    transition:transform .08s ease;
+    background:linear-gradient(180deg,#ffd977,var(--gold));border:3px solid var(--wood3);
+    border-radius:11px;padding:11px;font-weight:800;font-size:15px;color:var(--ink);
+    box-shadow:0 4px 0 var(--wood3);
   }
-  .play:hover{transform:translateY(-2px)}
-  .play:active{transform:translateY(3px);box-shadow:0 2px 0 var(--wood-3)}
-  .tip{font-size:13px;color:var(--ink-2);margin:10px 0 0}
-  h2{font-size:17px;margin:20px 0 8px}
-  table{width:100%;border-collapse:collapse;font-size:14px}
-  th,td{text-align:left;padding:7px 8px;border-bottom:1px solid rgba(107,74,47,.18)}
-  th{color:var(--ink-2);font-weight:700;font-size:13px}
-  td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#a9700a}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media (max-width:560px){
-    h1{font-size:32px}
-    .grid{grid-template-columns:1fr}
-    .panel{padding:18px}
-  }
-  .foot{margin-top:18px;font-size:12px;color:var(--ink-2)}
+  .card:hover .go{background:linear-gradient(180deg,#ffe49a,#ffcb55)}
+  footer{margin-top:22px;text-align:center;font-size:12px;color:var(--ink2);line-height:1.8}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <span class="badge">🎮 塔防 · 单人闯关</span>
-  <h1>精灵守卫</h1>
-  <p class="sub">怪物从左侧裂隙涌出，沿石板路进攻右侧要塞。<br>建塔拦截它们 —— 守住全部 12 波就是胜利，要塞生命归零就失败。</p>
+  <header>
+    <span class="badge">🎮 网页游戏合集</span>
+    <h1>两款塔防</h1>
+    <p class="sub">纯前端单文件 · 打开就能玩 · 电脑手机都适配</p>
+  </header>
 
-  <a class="play" href="./game.html">▶ 开始游戏</a>
-  <p class="tip">点塔牌 → 点草地建塔 ｜ 快捷键 1–4 选塔 · U 升级 · X 出售 · N 提前开波 · 空格暂停</p>
+  <div class="grid">
+    <a class="card" href="./tower-defense/">
+      <div class="thumb td">
+        🏰
+        <div class="chips">
+          <i>四种防御塔</i><i>12 波进攻</i><i>三档难度</i>
+        </div>
+      </div>
+      <h2>🛡️ 精灵守卫</h2>
+      <p>怪物沿石板路扑向要塞，你建塔拦截它们。守住全部 12 波就是胜利，要塞生命归零就失败。</p>
+      <div class="tags">
+        <span class="tag">经典塔防</span>
+        <span class="tag">升级 / 出售</span>
+        <span class="tag">倍速 1-3×</span>
+      </div>
+      <span class="go">▶ 开始游戏</span>
+    </a>
 
-  <div class="panel">
-    <div class="grid">
-      <div>
-        <h2>四种塔</h2>
-        <table>
-          <tr><th>塔</th><th style="text-align:right">价格</th><th>特点</th></tr>
-          <tr><td>箭塔</td><td class="n">50</td><td>单体速射，前期主力</td></tr>
-          <tr><td>炮塔</td><td class="n">105</td><td>范围溅射，清密集小怪</td></tr>
-          <tr><td>冰塔</td><td class="n">80</td><td>减速控场</td></tr>
-          <tr><td>激光塔</td><td class="n">155</td><td>高伤穿透，克制重甲</td></tr>
-        </table>
+    <a class="card" href="./egg-guard/">
+      <div class="thumb eg">
+        🥚
+        <div class="chips">
+          <i>英雄砍蛋</i><i>技能 / 天赋</i><i>双货币商店</i>
+        </div>
       </div>
-      <div>
-        <h2>三种难度</h2>
-        <table>
-          <tr><th>难度</th><th style="text-align:right">金币</th><th style="text-align:right">要塞</th><th style="text-align:right">强度</th></tr>
-          <tr><td>轻松</td><td class="n">320</td><td class="n">30</td><td class="n">0.78×</td></tr>
-          <tr><td>标准</td><td class="n">220</td><td class="n">14</td><td class="n">1.05×</td></tr>
-          <tr><td>硬仗</td><td class="n">185</td><td class="n">10</td><td class="n">1.32×</td></tr>
-        </table>
+      <h2>🥚 蛋蛋守卫</h2>
+      <p>英雄自动砍蛋，蛋掉金币与木材。用它们升级天赋、学习技能、领养宠物，扛过一波波进攻。</p>
+      <div class="tags">
+        <span class="tag">Roguelike</span>
+        <span class="tag">进化三选一</span>
+        <span class="tag">4 种模式</span>
       </div>
-    </div>
-    <h2>会遇到的敌人</h2>
-    <table>
-      <tr><th>敌人</th><th>特点</th></tr>
-      <tr><td>史莱姆</td><td>基础小怪，数量多</td></tr>
-      <tr><td>暗影蝠</td><td>会飞，走直线不绕路</td></tr>
-      <tr><td>石魔像</td><td>血厚走得慢</td></tr>
-      <tr><td>幽魂</td><td>又快又脆</td></tr>
-      <tr><td>小魔王</td><td>第 6、10 波登场</td></tr>
-      <tr><td>深渊魔王</td><td>第 12 波 Boss，攻入即重伤要塞</td></tr>
-    </table>
+      <span class="go">▶ 开始游戏</span>
+    </a>
   </div>
 
-  <p class="foot">纯前端单文件 · 无需下载 · 电脑手机都能玩</p>
+  <footer>
+    全部游戏均为单文件 HTML + Canvas，零依赖、零联网请求，进度存在浏览器本地。<br>
+    按 APK 逆向分析还原玩法机制，美术与代码为原创实现。
+  </footer>
 </div>
 </body>
 </html>
